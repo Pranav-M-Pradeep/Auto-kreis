@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Payment Form</title>
+    <style>
+        /* Import Google Fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(to right, #141e30, #243b55);
+            color: white;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 800px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(15px);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .tabs {
+            display: flex;
+            justify-content: space-between;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        .tab-btn {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 16px;
+            padding: 12px;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: 0.3s;
+        }
+
+        .tab-btn.active {
+            border-bottom: 3px solid #ff8c00;
+            font-weight: bold;
+        }
+
+        .payment-method {
+            display: none;
+            padding: 20px;
+            transition: opacity 0.4s ease-in-out;
+        }
+
+        .payment-method.active {
+            display: block;
+        }
+
+        .qr-box {
+            width: 200px;
+            height: 200px;
+            margin: 20px auto;
+            background: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 12px;
+        }
+
+        .qr-box img {
+            width: 90%;
+        }
+
+        .scan-btn, .pay-btn {
+            background: #ff8c00;
+            color: white;
+            border: none;
+            padding: 12px;
+            margin-top: 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+
+        .scan-btn:hover, .pay-btn:hover {
+            background: #ff6a00;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            outline: none;
+        }
+
+        .card-info {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .card-info input {
+            flex: 1;
+        }
+
+        /* Validation */
+        .error {
+            color: red;
+            font-size: 12px;
+            margin-top: 5px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Secure Payment</h2>
+
+    <div class="tabs">
+        <button class="tab-btn active" data-target="qr">QR Code</button>
+        <button class="tab-btn" data-target="card">Credit/Debit Card</button>
+        <button class="tab-btn" data-target="upi">UPI</button>
+    </div>
+
+    <div class="payment-content">
+        <!-- QR Code Payment -->
+        <div class="payment-method active" id="qr">
+            <p>Scan the QR code to pay</p>
+            <div class="qr-box">
+                <img src="QR.jpg" alt="QR Code" id="qr-image">
+            </div>
+            <button class="scan-btn">Scan QR Code</button>
+        </div>
+
+        <!-- Credit/Debit Card Payment -->
+        <div class="payment-method" id="card">
+            <p>Enter your card details</p>
+            <input type="text" id="cardNumber" placeholder="Card Number" maxlength="16">
+            <span class="error" id="cardError">Invalid card number</span>
+
+            <input type="text" placeholder="Card Holder Name">
+
+            <div class="card-info">
+                <input type="text" id="expiryDate" placeholder="MM/YY" maxlength="5">
+                <input type="text" id="cvv" placeholder="CVV" maxlength="3">
+            </div>
+
+            <button class="pay-btn">Pay Now</button>
+        </div>
+
+        <!-- UPI Payment -->
+        <div class="payment-method" id="upi">
+            <p>Enter UPI ID</p>
+            <input type="text" id="upiID" placeholder="UPI ID (example@upi)">
+            <span class="error" id="upiError">Invalid UPI ID</span>
+            <button class="pay-btn">Pay via UPI</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const tabButtons = document.querySelectorAll(".tab-btn");
+        const paymentMethods = document.querySelectorAll(".payment-method");
+
+        tabButtons.forEach(button => {
+            button.addEventListener("click", function () {
+                tabButtons.forEach(btn => btn.classList.remove("active"));
+                this.classList.add("active");
+
+                const target = this.getAttribute("data-target");
+                paymentMethods.forEach(method => {
+                    method.classList.remove("active");
+                    if (method.id === target) {
+                        method.classList.add("active");
+                    }
+                });
+            });
+        });
+
+        // Card Validation
+        document.getElementById("cardNumber").addEventListener("input", function () {
+            const regex = /^[0-9]{16}$/;
+            document.getElementById("cardError").style.display = regex.test(this.value) ? "none" : "block";
+        });
+
+        // UPI Validation
+        document.getElementById("upiID").addEventListener("input", function () {
+            const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+$/;
+            document.getElementById("upiError").style.display = regex.test(this.value) ? "none" : "block";
+        });
+    });
+</script>
+
+</body>
+</html>

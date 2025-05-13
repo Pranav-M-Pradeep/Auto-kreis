@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Management System - Booking</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(to right, #141e30, #243b55);
+            padding-left: 50px;
+        }
+
+        .container {
+            display: flex;
+            width: 900px;
+            height: 625px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 20px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            overflow: hidden;
+            padding: 20px;
+            margin-left: 100px;
+        }
+
+        .form-section {
+            flex: 1.5;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 16px;
+            color: #34495e;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .input-group input,
+        .input-group select,
+        .input-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #bdc3c7;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 14px;
+            background: #2575fc;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .right-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            color: white;
+        }
+
+        .right-section img {
+            width: 120px;
+            margin-bottom: 15px;
+        }
+
+        .highlight {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .description {
+            font-size: 16px;
+            margin-top: 10px;
+        }
+
+        .upcoming-services {
+    width: 300px;
+    height: 625px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    padding: 20px;
+    margin-left: 60px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    overflow: auto;
+}
+
+.upcoming-services h3 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 15px;
+}
+
+.service-item {
+    background: rgba(37, 117, 252, 0.1);
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: #2c3e50;
+}
+
+.tips-section {
+    margin-top: 20px;
+    padding: 15px;
+    background: rgba(255, 240, 200, 0.9);
+    border-radius: 10px;
+    text-align: center;
+}
+
+.tips-section h4 {
+    color: #d35400;
+    margin-bottom: 10px;
+}
+
+.tips-section ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.tips-section li {
+    font-size: 14px;
+    color: #2c3e50;
+    margin: 5px 0;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="form-section">
+            <h2>Car Service Booking</h2>
+            <form action="book.php" method="POST">
+                <div class="input-group">
+                    <label for="user-id">User ID</label>
+                    <input type="text" id="user-id" name="user_id" required>
+                </div>
+                <div class="input-group">
+                    <label for="service-date">Date</label>
+                    <input type="date" id="service-date" name="date" required>
+                </div>
+                <div class="input-group">
+                    <label for="service-time">Time</label>
+                    <input type="time" id="service-time" name="time" required>
+                </div>
+                <div class="input-group">
+                    <label for="service-needed">Service Needed</label>
+                    <select id="service-needed" name="service_needed" required>
+                        <option value="Oil Change">Oil Change</option>
+                        <option value="Tire Replacement">Tire Replacement</option>
+                        <option value="Brake Check">Brake Check</option>
+                        <option value="General Service">General Service</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="service-notes">Any Notes</label>
+                    <textarea id="service-notes" name="notes"></textarea>
+                </div>
+                <button type="submit" class="btn" onclick="window.location.href='booking.html'">Next</button>
+            </form>
+        </div>
+        
+        <div class="right-section">
+            <img src="https://cdn-icons-png.flaticon.com/512/1075/1075636.png" alt="Car Service Icon">
+            <div class="highlight">Fast & Reliable Car Service</div>
+            <div class="description">Book your car service with ease and experience top-notch vehicle maintenance.</div>
+        </div>
+    </div>
+    <div class="upcoming-services">
+        <h3>Upcoming Services</h3>
+        <div class="service-item">
+            <strong>Oil Change</strong> <br>
+            Date: 15th March 2025 <br>
+            Time: 10:00 AM
+        </div>
+        <div class="service-item">
+            <strong>Tire Replacement</strong> <br>
+            Date: 20th March 2025 <br>
+            Time: 2:00 PM
+        </div>
+        <div class="service-item">
+            <strong>Brake Check</strong> <br>
+            Date: 25th March 2025 <br>
+            Time: 4:00 PM
+        </div>
+    
+        <!-- Creative Space Filler Section -->
+        <div class="tips-section">
+            <h4>🚗 Tips & Recommendations</h4>
+            <ul>
+                <li>✅ Check your tire pressure every two weeks.</li>
+                <li>🔋 Keep your battery terminals clean for better performance.</li>
+                <li>🛢️ Change your oil every 5,000 km for a smoother ride.</li>
+                <li>🚨 Listen for unusual noises and address issues early.</li>
+                <li>🌀 Rotate your tires every 10,000 km for even wear.</li>
+            </ul>
+        </div>
+    </div>
+    
+</body>
+</html>
